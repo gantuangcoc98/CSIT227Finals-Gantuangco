@@ -251,7 +251,7 @@
               <component id="b6593" class="javax.swing.JTextArea" binding="taPersons">
                 <constraints/>
                 <properties>
-                  <editable value="true"/>
+                  <editable value="false"/>
                 </properties>
               </component>
             </children>
