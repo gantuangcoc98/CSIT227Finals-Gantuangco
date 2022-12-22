@@ -192,7 +192,7 @@ public class App extends JFrame {
                     tfAge.setText(String.valueOf(load.age));
                     if (load instanceof Employee) {
                         tfMonths.setText(String.valueOf(((Employee) load).getMonths_worked()));
-                        tfSalary.setText(String.valueOf(((Employee) load).getSalary()));
+                        tfSalary.setText(String.valueOf((int)((Employee) load).getSalary()));
                         if (load instanceof Clerk)
                             rbClerk.setSelected(true);
                         else
@@ -222,9 +222,19 @@ public class App extends JFrame {
         });
 
         btnReward.addActionListener(new ActionListener() {
+            int index;
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    index = Integer.parseInt(tfLoad.getText());
+                    giveReward(index);
+                    JOptionPane.showMessageDialog(btnReward, message);
+                } catch (NumberFormatException nfe) {
+                    if (tfLoad.getText().isEmpty()) {}
+                    else {
+                        JOptionPane.showMessageDialog(btnReward, "Load input should be a number!");
+                    }
+                }
             }
         });
 
@@ -286,8 +296,18 @@ public class App extends JFrame {
         app.setVisible(true);
     }
 
-    static void giveReward(int n) {
-
+    String message = "";
+    void giveReward(int n) {
+        Person p = persons.get(n - 1);
+        try {
+            if (p instanceof Employee) {
+                message = "Thirteenth month pay for " + p.name + ": " + ((Employee) p).thirteenthMonth();
+            } else {
+                message = p.name + " is not an Employee.";
+            }
+        } catch (ArithmeticException ae) {
+            message = p.name + " has not yet been working for a month.";
+        }
     }
 
     public class NoInputGiven extends Throwable {

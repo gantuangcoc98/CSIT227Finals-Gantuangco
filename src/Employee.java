@@ -10,7 +10,7 @@ public abstract class Employee extends Person{
     }
 
     public double thirteenthMonth() {
-        return salary / (12 / months_worked);
+        return salary / ((12 / (double)months_worked));
     }
 
     public int getMonths_worked() {
