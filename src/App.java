@@ -1,6 +1,8 @@
 import javax.naming.Name;
 import javax.naming.NameAlreadyBoundException;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Month;
@@ -39,8 +41,6 @@ public class App extends JFrame {
         bg.add(rbClerk);
         bg.add(rbManager);
 
-        //Instantiation of Objects
-        String list;
         btnSave.addActionListener(new ActionListener() {
             int count = 1;
 
@@ -220,6 +220,26 @@ public class App extends JFrame {
                 taPersons.setText(output);
             }
         });
+
+        btnReward.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        rbCustomer.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (rbCustomer.isSelected()) {
+                    tfMonths.setEditable(false);
+                    tfSalary.setEditable(false);
+                } else {
+                    tfMonths.setEditable(true);
+                    tfSalary.setEditable(true);
+                }
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -232,6 +252,7 @@ public class App extends JFrame {
     }
 
     static void giveReward(int n) {
+
     }
 
     public class NoInputGiven extends Throwable {

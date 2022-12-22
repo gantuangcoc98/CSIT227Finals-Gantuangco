@@ -96,7 +96,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <enabled value="true"/>
+            </properties>
           </component>
           <component id="93399" class="javax.swing.JLabel">
             <constraints>
