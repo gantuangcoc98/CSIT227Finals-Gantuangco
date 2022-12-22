@@ -232,12 +232,46 @@ public class App extends JFrame {
             @Override
             public void stateChanged(ChangeEvent e) {
                 if (rbCustomer.isSelected()) {
+                    tfMonths.setText("");
                     tfMonths.setEditable(false);
+                    tfSalary.setText("");
                     tfSalary.setEditable(false);
                 } else {
                     tfMonths.setEditable(true);
                     tfSalary.setEditable(true);
                 }
+            }
+        });
+
+        // IN THE SAVE BUTTON, I JUST IMPLEMENTED A STRING ARRAY TO STORE THE LIST INSTEAD OF AN ACTUAL FILE
+        final String[] output = new String[1];
+        btnSavePerson.addActionListener(new ActionListener() {
+            String list = "";
+            int count = 1;
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (Person p : persons) {
+                    if (p instanceof Customer) {
+                        list += count + ". Customer - " + p.name + " (" + p.age + ")\n";
+                        count++;
+                    }
+                    else if (p instanceof Clerk) {
+                        list += count + ". Clerk - " + p.name + " (" + p.age + ")\n";
+                        count++;
+                    }
+                    else if (p instanceof Manager) {
+                        list += count + ". Manager - " + p.name + " (" + p.age + ")\n";
+                        count++;
+                    }
+                }
+                output[0] = list;
+            }
+        });
+
+        btnLoadPerson.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                taPersons.setText(String.valueOf(output[0]));
             }
         });
     }
