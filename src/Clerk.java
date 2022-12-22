@@ -6,6 +6,6 @@ public class Clerk extends Employee {
 
     @Override
     public String toString() {
-        return "How may I help you?";
+        return super.toString() + " How may I help you?";
     }
 }

@@ -47,6 +47,14 @@ public class App extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    //NO ROLE SELECTED ERROR
+                    if (rbCustomer.isSelected() == false && rbClerk.isSelected() == false && rbManager.isSelected() == false)
+                        throw new NoRoleSelected();
+
+                    //NO INPUT GIVEN ERROR (ALL TEXT FIELD)
+                    if (tfName.getText().isEmpty() && tfAge.getText().isEmpty() && tfMonths.getText().isEmpty() && tfSalary.getText().isEmpty())
+                        throw new NoInputGiven();
+
                     //NAME INPUT ERRORS
                     try {
                         int number = Integer.parseInt(tfName.getText());
@@ -106,6 +114,12 @@ public class App extends JFrame {
                             }
                         }
                     }
+                }
+                catch (NoInputGiven nig) {
+                    JOptionPane.showMessageDialog(btnSave, "Please provide input!");
+                }
+                catch (NoRoleSelected nrs) {
+                    JOptionPane.showMessageDialog(btnSave, "Please select a role. (i.e Customer, Clerk, Manager)");
                 }
                 catch (NameError ne) {
                     if (tfName.getText().isEmpty())
@@ -193,6 +207,19 @@ public class App extends JFrame {
                 }
             }
         });
+
+        btnSayHi.addActionListener(new ActionListener() {
+            String output = "";
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (persons.isEmpty())
+                    JOptionPane.showMessageDialog(btnSayHi, "There is no person in the list.");
+                for (Person p : persons) {
+                    output += p.toString() + "\n";
+                }
+                taPersons.setText(output);
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -205,6 +232,14 @@ public class App extends JFrame {
     }
 
     static void giveReward(int n) {
+    }
+
+    public class NoInputGiven extends Throwable {
+        public NoInputGiven() {}
+    }
+
+    public class NoRoleSelected extends Throwable {
+        public NoRoleSelected() {}
     }
 
     public class NameError extends Throwable {
