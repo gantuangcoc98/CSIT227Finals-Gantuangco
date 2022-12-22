@@ -268,6 +268,7 @@ public class App extends JFrame {
             }
         });
 
+        // IN THE LOAD BUTTON, I JUST LOADED THE LIST THAT IS SAVED FROM THE STRING VARIABLE ABOVE
         btnLoadPerson.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
