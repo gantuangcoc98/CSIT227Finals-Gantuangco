@@ -157,13 +157,6 @@ public class App extends JFrame {
         btnClear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (rbClerk.isSelected())
-                    rbCustomer.setEnabled(false);
-                else if (rbClerk.isSelected())
-                    rbClerk.setEnabled(false);
-                else if (rbClerk.isSelected())
-                    rbManager.setEnabled(false);
-
                 tfLoad.setText("");
                 tfAge.setText("");
                 tfMonths.setText("");
