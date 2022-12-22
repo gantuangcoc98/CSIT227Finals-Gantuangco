@@ -106,23 +106,6 @@ public class App extends JFrame {
                             }
                         }
                     }
-
-                    if (rbCustomer.isSelected()) {
-                        Customer c = new Customer(tfName.getText(), Integer.parseInt(tfAge.getText()));
-                        taPersons.setText(count + ". Customer - " + c.name + " (" + c.age + ")");
-                        persons.add(c);
-                        count++;
-                    } else if (rbClerk.isSelected()) {
-                        Clerk cl = new Clerk(tfName.getText(), Integer.parseInt(tfAge.getText()), Integer.parseInt(tfMonths.getText()), (double) Integer.parseInt(tfSalary.getText()));
-                        taPersons.setText(count + ". Clerk - " + cl.name + " (" + cl.age + ")");
-                        persons.add(cl);
-                        count++;
-                    } else if (rbManager.isSelected()) {
-                        Manager m = new Manager(tfName.getText(), Integer.parseInt(tfAge.getText()), Integer.parseInt(tfMonths.getText()), (double) Integer.parseInt(tfSalary.getText()));
-                        taPersons.setText(count + ". Manager - " + m.name + " (" + m.age + ")");
-                        persons.add(m);
-                        count++;
-                    }
                 }
                 catch (NameError ne) {
                     if (tfName.getText().isEmpty())
@@ -151,6 +134,23 @@ public class App extends JFrame {
                     if (tfAge.getText().isEmpty())
                         new AgeError();
                 }
+
+                if (rbCustomer.isSelected()) {
+                    Customer c = new Customer(tfName.getText(), Integer.parseInt(tfAge.getText()));
+                    taPersons.setText(count + ". Customer - " + c.name + " (" + c.age + ")");
+                    persons.add(c);
+                    count++;
+                } else if (rbClerk.isSelected()) {
+                    Clerk cl = new Clerk(tfName.getText(), Integer.parseInt(tfAge.getText()), Integer.parseInt(tfMonths.getText()), (double) Integer.parseInt(tfSalary.getText()));
+                    taPersons.setText(count + ". Clerk - " + cl.name + " (" + cl.age + ")");
+                    persons.add(cl);
+                    count++;
+                } else if (rbManager.isSelected()) {
+                    Manager m = new Manager(tfName.getText(), Integer.parseInt(tfAge.getText()), Integer.parseInt(tfMonths.getText()), (double) Integer.parseInt(tfSalary.getText()));
+                    taPersons.setText(count + ". Manager - " + m.name + " (" + m.age + ")");
+                    persons.add(m);
+                    count++;
+                }
             }
         });
 
@@ -163,6 +163,34 @@ public class App extends JFrame {
                 tfName.setText("");
                 tfSalary.setText("");
                 taPersons.setText("");
+            }
+        });
+
+        btnLoad.addActionListener(new ActionListener() {
+            int index;
+            Person load;
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    index = Integer.parseInt(tfLoad.getText());
+                    load = persons.get(index - 1);
+                    tfName.setText(load.name);
+                    tfAge.setText(String.valueOf(load.age));
+                    if (load instanceof Employee) {
+                        tfMonths.setText(String.valueOf(((Employee) load).getMonths_worked()));
+                        tfSalary.setText(String.valueOf(((Employee) load).getSalary()));
+                        if (load instanceof Clerk)
+                            rbClerk.setSelected(true);
+                        else
+                            rbManager.setSelected(true);
+                    }
+                    else
+                        rbCustomer.setSelected(true);
+                } catch (NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(btnLoad, "Load input should be a number!");
+                } catch (IndexOutOfBoundsException iob) {
+                    JOptionPane.showMessageDialog(btnLoad, "Cannot find the person in the list!");
+                }
             }
         });
     }
