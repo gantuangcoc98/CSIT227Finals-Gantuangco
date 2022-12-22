@@ -205,7 +205,6 @@ public class App extends JFrame {
     }
 
     static void giveReward(int n) {
-
     }
 
     public class NameError extends Throwable {
